@@ -22,6 +22,7 @@ class TestDevelopmentConfig(TestCase):
             app.config['SQLALCHEMY_DATABASE_URI'] ==
             os.environ.get('DATABASE_URL')
         )
+        self.assertTrue(app.config['MINIMUM_DISTANCE'] == 100)
 
 
 class TestTestingConfig(TestCase):
@@ -38,6 +39,7 @@ class TestTestingConfig(TestCase):
             app.config['SQLALCHEMY_DATABASE_URI'] ==
             os.environ.get('DATABASE_TEST_URL')
         )
+        self.assertTrue(app.config['MINIMUM_DISTANCE'] == 100)
 
 
 class TestProductionConfig(TestCase):
@@ -49,6 +51,7 @@ class TestProductionConfig(TestCase):
         self.assertTrue(app.config['SECRET_KEY'] ==
                         os.environ.get('SECRET_KEY'))
         self.assertFalse(app.config['TESTING'])
+        self.assertTrue(app.config['MINIMUM_DISTANCE'] == 100)
 
 
 if __name__ == '__main__':
