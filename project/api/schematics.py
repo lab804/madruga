@@ -15,7 +15,7 @@ def ensure_unique_identity(data):
 
 class StationSchema(marshmallow.Schema):
     class Meta:
-        fields = ('name', 'latitude', 'longitude')
+        fields = ('id', 'name', 'latitude', 'longitude')
 
 
 class CreateStationSchema(marshmallow.Schema):
@@ -24,5 +24,5 @@ class CreateStationSchema(marshmallow.Schema):
     longitude = fields.Float(required=True)
 
 
-stations_schema = StationSchema(many=True)
+station_schema = StationSchema()
 add_station_schema = CreateStationSchema()
