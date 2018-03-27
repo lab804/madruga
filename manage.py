@@ -1,9 +1,12 @@
+import os
+import json
 import unittest
 
 import coverage
 from flask.cli import FlaskGroup
 
 from project import create_app, db
+from project.api.models import Station
 
 COV = coverage.coverage(
     branch=True,
@@ -23,6 +26,31 @@ def recreate_db():
     db.drop_all()
     db.create_all()
     db.session.commit()
+
+
+@cli.command()
+def seed_db():
+    stations_obj = []
+    if os.path.exists('project/data/estacoes.json'):
+        with open('project/data/estacoes.json') as f:
+            stations = json.loads(f.read())
+            if stations:
+                for key in stations.keys():
+                    station = stations[key]
+                    if 'latitude' and 'longitude' in station:
+                        stations_obj.append(
+                            Station(name=key,
+                                    latitude=float(
+                                        station['latitude'].replace(
+                                            ',', '.')),
+                                    longitude=float(
+                                        station['longitude'].replace(
+                                            ',', '.')),
+                                    url=station['url'])
+                        )
+    if len(stations_obj) > 0:
+        db.session.add_all(stations_obj)
+        db.session.commit()
 
 
 @cli.command()
