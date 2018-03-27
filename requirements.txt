@@ -1,0 +1,19 @@
+Flask==0.12.2
+
+# db
+Flask-SQLAlchemy==2.3.2
+psycopg2==2.7.4
+
+# server
+gunicorn==19.7.1
+
+# testing
+Flask-Testing==0.7.1
+coverage==4.5.1
+flake8==3.5.0
+
+# extensions
+Flask-Migrate==2.1.1
+Flask-Cors==3.0.3
+flask-marshmallow==0.8.0
+Flask-Classful==0.14.1

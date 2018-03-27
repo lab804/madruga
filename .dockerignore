@@ -1,0 +1,8 @@
+.dockerignore
+Dockerfile-dev
+Dockerfile-prod
+htmlcov
+coverage
+env
+build
+migrations

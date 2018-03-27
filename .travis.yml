@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - '3.6'
+
+service:
+  - postgresql
+
+install:
+  - pip install -r requirements.txt
+
+before_script:
+  - export APP_SETTINGS=project.config.TestingConfig
+  - export DATABASE_TEST_URL=postgresql://postgres:@localhost/stations_test
+  - export SECRET_KEY=changeme
+  - psql -c 'create database stations_test;' -U postgres
+  - python manage.py recreate_db
+
+script:
+  - flake8 project
+  - python manage.py test
