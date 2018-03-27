@@ -49,6 +49,18 @@ class TestStationModel(BaseTestCase):
         self.assertIsNone(station.url)
         self.assertTrue(station.is_public)
 
+    def test_find_station_by_location(self):
+        add_station('estacao-x', -15.789343, -47.925756)
+        add_station('estacao-y', -15.789343, -47.925756)
+        add_station('estacao-z', -19.789343, -28.925756)
+
+        station = Station.location(latitude=-19.789559, longitude=-28.925123)
+        self.assertTrue(station.id)
+        self.assertEqual(station.name, 'estacao-z')
+        self.assertEqual(station.latitude, -19.789343)
+        self.assertEqual(station.longitude, -28.925756)
+        self.assertTrue(station.is_public)
+
 
 if __name__ == '__main__':
     unittest.main()
