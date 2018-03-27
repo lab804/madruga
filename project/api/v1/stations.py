@@ -1,11 +1,13 @@
-from sqlalchemy import exc
-from flask import jsonify, request
+from flask import jsonify
+from flask import request
 from flask_classful import route
+from sqlalchemy import exc
 
-from project.api.v1 import V1FlaskView
-from project.api.schematics import add_station_schema, station_schema
-from project.extensions import db
 from project.api.models import Station
+from project.api.schematics import add_station_schema
+from project.api.schematics import station_schema
+from project.api.v1 import V1FlaskView
+from project.extensions import db
 
 
 class StationsView(V1FlaskView):

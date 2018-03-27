@@ -4,6 +4,7 @@ import unittest
 from project.tests.base import BaseTestCase
 from project.tests.utils import add_station
 
+
 class TestStationsService(BaseTestCase):
     """Test for the Stations Service."""
     version = '/v1/'

@@ -2,8 +2,8 @@ import unittest
 
 from sqlalchemy.exc import IntegrityError
 
-from project.extensions import db
 from project.api.models import Station
+from project.extensions import db
 from project.tests.base import BaseTestCase
 from project.tests.utils import add_station
 

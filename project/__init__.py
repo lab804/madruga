@@ -3,12 +3,10 @@ import os
 from flask import Flask
 from flask_cors import CORS
 
-from project.extensions import (
-    db,
-    migrate,
-    marshmallow
-)
 from project.api.v1.stations import StationsView
+from project.extensions import db
+from project.extensions import marshmallow
+from project.extensions import migrate
 
 
 def extensions_app(app):

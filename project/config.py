@@ -1,7 +1,7 @@
 import os
 
 
-class BaseConfig:
+class BaseConfig(object):
     """Base configuration"""
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False

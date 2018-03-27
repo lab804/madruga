@@ -1,7 +1,8 @@
-from marshmallow import fields, ValidationError
+from marshmallow import fields
+from marshmallow import ValidationError
 
-from project.extensions import marshmallow
 from project.api.models import Station
+from project.extensions import marshmallow
 
 
 def ensure_unique_identity(data):
@@ -14,7 +15,7 @@ def ensure_unique_identity(data):
 
 
 class StationSchema(marshmallow.Schema):
-    class Meta:
+    class Meta(object):
         fields = ('id', 'name', 'latitude', 'longitude')
 
 
