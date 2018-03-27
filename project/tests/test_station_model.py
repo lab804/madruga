@@ -39,6 +39,16 @@ class TestStationModel(BaseTestCase):
         db.session.add(duplicate_station)
         self.assertRaises(IntegrityError, db.session.commit)
 
+    def test_find_station_by_name(self):
+        add_station('estacao-x', -15.789343, -47.925756)
+        station = Station.find_by_name('estacao-x')
+        self.assertTrue(station.id)
+        self.assertEqual(station.name, 'estacao-x')
+        self.assertEqual(station.latitude, -15.789343)
+        self.assertEqual(station.longitude, -47.925756)
+        self.assertIsNone(station.url)
+        self.assertTrue(station.is_public)
+
 
 if __name__ == '__main__':
     unittest.main()
