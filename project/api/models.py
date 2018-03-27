@@ -15,3 +15,14 @@ class Station(db.Model):
         self.latitude = latitude
         self.longitude = longitude
         self.url = url
+
+    @classmethod
+    def find_by_name(cls, identity):
+        """
+        Find a station by their e-mail or username.
+
+        :param identity: Email or username
+        :type identity: str
+        :return: User instance
+        """
+        return Station.query.filter(Station.name == identity).first()
