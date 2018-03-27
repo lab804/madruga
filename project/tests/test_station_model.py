@@ -8,7 +8,7 @@ from project.tests.base import BaseTestCase
 from project.tests.utils import add_station
 
 
-class TestUserModel(BaseTestCase):
+class TestStationModel(BaseTestCase):
 
     def test_add_station(self):
         station = add_station('estacao-x', -15.789343, -47.925756)
