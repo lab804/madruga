@@ -1,3 +1,6 @@
+from flask import current_app
+from sqlalchemy import func, asc
+
 from project.extensions import db
 
 
@@ -18,11 +21,27 @@ class Station(db.Model):
 
     @classmethod
     def find_by_name(cls, identity):
-        """
-        Find a station by their e-mail or username.
-
-        :param identity: Email or username
-        :type identity: str
-        :return: User instance
-        """
         return Station.query.filter(Station.name == identity).first()
+
+    @classmethod
+    def location(cls, latitude, longitude,
+                 distance=None):
+        if not distance:
+            distance = current_app.config.get('MINIMUM_DISTANCE')
+        stations = Station.query.filter(
+            func.acos(func.sin(func.radians(
+                latitude)) * func.sin(
+                func.radians(Station.latitude)) + func.cos(
+                func.radians(latitude)) * func.cos(
+                func.radians(Station.latitude)) * func.cos(
+                func.radians(Station.longitude) - (func.radians(
+                    longitude)))) * 6371 <= distance)
+        stations.order_by(
+            asc(func.acos(func.sin(func.radians(
+                latitude)) * func.sin(
+                func.radians(Station.latitude)) + func.cos(
+                func.radians(latitude)) * func.cos(
+                func.radians(Station.latitude)) * func.cos(
+                func.radians(Station.longitude) - (func.radians(
+                    longitude)))) * 6371))
+        return stations.first()
