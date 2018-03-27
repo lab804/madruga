@@ -5,12 +5,14 @@ from flask_cors import CORS
 
 from project.extensions import (
     db,
-    migrate
+    migrate,
+    marshmallow
 )
 from project.api.v1.stations import StationsView
 
 
 def extensions_app(app):
+    marshmallow.init_app(app)
     CORS(app)
     db.init_app(app)
     migrate.init_app(app, db)
