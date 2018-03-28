@@ -8,6 +8,7 @@ service:
 
 install:
   - pip install -r requirements.txt
+  - pip install python-coveralls
 
 before_script:
   - export APP_SETTINGS=project.config.TestingConfig
@@ -19,3 +20,6 @@ before_script:
 script:
   - flake8 project
   - python manage.py test
+
+after_success:
+  - coveralls
