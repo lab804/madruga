@@ -1,9 +1,13 @@
 .. -*- mode: rst -*-
 
-|Travis|_
+|Travis|_  |Coveralls|_
 
 .. |Travis| image:: https://travis-ci.org/lab804/madruga.svg?branch=master
 .. _Travis: https://travis-ci.org/lab804/madruga
+
+
+.. |Coveralls| image:: https://coveralls.io/repos/github/lab804/madruga/badge.svg?branch=master
+.. _Coveralls: https://coveralls.io/github/lab804/madruga?branch=master
 
 .. image:: logo.jpg
 
