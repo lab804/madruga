@@ -6,3 +6,4 @@ coverage
 env
 build
 migrations
+src
