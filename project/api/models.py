@@ -1,3 +1,5 @@
+from collections import OrderedDict
+
 from flask import current_app
 from sqlalchemy import func, asc
 
@@ -6,19 +8,25 @@ from project.extensions import db
 
 
 class Station(db.Model):
+    TYPE = OrderedDict([
+        ('labmet', 'LabMet'),
+        ('inmet', 'INMET')
+    ])
+
     __tablename__ = "stations"
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    type = db.Column(db.Enum(*TYPE, name='station_types', native_enum=False),
+                     index=True, nullable=False, server_default='labmet')
+    model = db.Column(db.String(10), nullable=True)
     name = db.Column(db.String(128), nullable=False, unique=True)
     latitude = db.Column(db.Float(), nullable=False, index=True)
     longitude = db.Column(db.Float(), default=True, index=True)
     is_public = db.Column(db.Boolean(), default=True, nullable=False)
     url = db.Column(db.String(255), nullable=True)
 
-    def __init__(self, name, latitude, longitude, url=None):
-        self.name = name
-        self.latitude = latitude
-        self.longitude = longitude
-        self.url = url
+    def __init__(self, **kwargs):
+        super(Station, self).__init__(**kwargs)
 
     @classmethod
     def find_by_name(cls, identity):

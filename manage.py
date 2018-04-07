@@ -46,7 +46,8 @@ def seed_db():
                                     longitude=float(
                                         station['longitude'].replace(
                                             ',', '.')),
-                                    url=station['url'])
+                                    url=station['url'],
+                                    type='inmet')
                         )
     if len(stations_obj) > 0:
         db.session.add_all(stations_obj)
