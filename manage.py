@@ -38,6 +38,10 @@ def seed_db():
                 for key in stations.keys():
                     station = stations[key]
                     if 'latitude' and 'longitude' in station:
+                        label = station['label'].split('-')
+                        if len(label) == 2:
+                            state = label[0].strip()
+                            city = label[1].strip()
                         stations_obj.append(
                             Station(name=key,
                                     latitude=float(
@@ -47,8 +51,20 @@ def seed_db():
                                         station['longitude'].replace(
                                             ',', '.')),
                                     url=station['url'],
-                                    type='inmet')
+                                    type='inmet',
+                                    state=state,
+                                    city=city)
                         )
+    if os.path.exists('project/data/labmet.json'):
+        with open('project/data/labmet.json') as f:
+            stations = json.loads(f.read())
+            if stations:
+                for station in stations:
+                    st = Station(**station)
+                    st.type = 'labmet'
+                    stations_obj.append(
+                        st
+                    )
     if len(stations_obj) > 0:
         db.session.add_all(stations_obj)
         db.session.commit()
