@@ -1,6 +1,7 @@
 from flask import current_app
 from sqlalchemy import func, asc
 
+from labmet_libraries.crawlers import INMET
 from project.extensions import db
 
 
@@ -45,3 +46,15 @@ class Station(db.Model):
                 func.radians(Station.longitude) - (func.radians(
                     longitude)))) * 6371))
         return stations.first()
+
+    def weather(self, start, end):
+        if self.is_public:
+            inmet = INMET()
+            data = inmet.get_data(self.url, start, end)
+            if data:
+                return data
+            else:
+                return None
+        # get internal stations
+        else:
+            return None
