@@ -6,4 +6,6 @@ while ! nc -z stations-db 5432; do
 done
 echo "PostgreSQL started"
 
+pip install -e git+https://$GITTOKEN:@github.com/lab804/labmet_libraries.git@master#egg=labmet_libraries
+
 python manage.py run -h 0.0.0.0
