@@ -6,7 +6,7 @@ class BaseConfig(object):
     TESTING = False
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     SECRET_KEY = os.environ.get('SECRET_KEY')
-    MINIMUM_DISTANCE = 100
+    MINIMUM_DISTANCE = 50
 
 
 class DevelopmentConfig(BaseConfig):
