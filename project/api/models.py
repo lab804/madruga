@@ -16,12 +16,20 @@ class Station(db.Model):
     __tablename__ = "stations"
 
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
+    # characteristics
     type = db.Column(db.Enum(*TYPE, name='station_types', native_enum=False),
                      index=True, nullable=False, server_default='labmet')
     model = db.Column(db.String(10), nullable=True)
     name = db.Column(db.String(128), nullable=False, unique=True)
+
+    # location
+    city = db.Column(db.String(50), nullable=True)
+    state = db.Column(db.String(2), nullable=True)
+    country = db.Column(db.String(2), nullable=True, default="br")
     latitude = db.Column(db.Float(), nullable=False, index=True)
     longitude = db.Column(db.Float(), default=True, index=True)
+
+    # access
     is_public = db.Column(db.Boolean(), default=True, nullable=False)
     url = db.Column(db.String(255), nullable=True)
 
