@@ -20,6 +20,8 @@ class StationsView(V1FlaskView):
 
         latitude = request.args.get('lat', default=None, type=float)
         longitude = request.args.get('lng', default=None, type=float)
+        start = request.args.get('start', default='28/03/2018', type=str)
+        end = request.args.get('end', default='28/03/2018', type=str)
 
         if latitude is None or longitude is None:
             return jsonify(response_obj), 400
@@ -30,9 +32,14 @@ class StationsView(V1FlaskView):
             response_obj['message'] = 'station does not exist.'
             return jsonify(response_obj), 404
 
+        weather_data = station.weather(start, end)
+
+        station_data = station_schema.dump(station).data
+        station_data['weather'] = weather_data
+
         response_obj = {
              'status': 'success',
-             'data': station_schema.dump(station).data,
+             'data': station_data
         }
 
         return jsonify(response_obj), 200
